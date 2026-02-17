@@ -1,0 +1,46 @@
+{
+    "name": "csv-quick-table-view",
+    "displayName": "CSV Quick Table View",
+    "description": "A simple CSV previewer that formats CSV files as HTML tables.",
+    "version": "0.0.3",
+    "publisher": "pjrigali",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/pjrigali/csv-formatter"
+    },
+    "engines": {
+        "vscode": "^1.90.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "onCustomEditor:csvFormatter.preview"
+    ],
+    "main": "./out/extension.js",
+    "contributes": {
+        "customEditors": [
+            {
+                "viewType": "csvFormatter.preview",
+                "displayName": "CSV Table Preview",
+                "selector": [
+                    {
+                        "filenamePattern": "*.csv"
+                    }
+                ],
+                "priority": "default"
+            }
+        ]
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./"
+    },
+    "devDependencies": {
+        "@types/vscode": "^1.90.0",
+        "@types/node": "^20.0.0",
+        "@vscode/vsce": "^3.0.0",
+        "typescript": "^5.0.0"
+    }
+}
