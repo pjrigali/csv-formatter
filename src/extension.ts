@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import * as XLSX from 'xlsx';
 
 export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(CsvEditorProvider.register(context));
@@ -68,13 +69,36 @@ class CsvEditorProvider implements vscode.CustomReadonlyEditorProvider {
 
     private async updateWebview(document: vscode.CustomDocument, webview: vscode.Webview) {
         const content = await vscode.workspace.fs.readFile(document.uri);
-        const text = Buffer.from(content).toString('utf8');
         const config = vscode.workspace.getConfiguration('csvQuickTableView');
-        webview.html = this.getHtmlForWebview(webview, text, config);
+
+        if (document.uri.fsPath.endsWith('.xlsx')) {
+            webview.html = this.getHtmlForWebview(webview, '', config, true, content);
+        } else {
+            const text = Buffer.from(content).toString('utf8');
+            webview.html = this.getHtmlForWebview(webview, text, config, false);
+        }
     }
 
-    private getHtmlForWebview(webview: vscode.Webview, text: string, config: vscode.WorkspaceConfiguration): string {
-        const rows = this.parseCsv(text);
+    private getHtmlForWebview(webview: vscode.Webview, text: string, config: vscode.WorkspaceConfiguration, isBinary: boolean = false, contentBuffer?: Uint8Array): string {
+        let rows: string[][] = [];
+
+        if (isBinary && contentBuffer) {
+            try {
+                const workbook = XLSX.read(contentBuffer, { type: 'array' });
+                const sheetName = workbook.SheetNames[0];
+                const sheet = workbook.Sheets[sheetName];
+                // Use header: 1 to get a 2D array of arrays
+                const rawRows = XLSX.utils.sheet_to_json(sheet, { header: 1 }) as any[][];
+
+                // Convert all values to strings for consistent rendering
+                rows = rawRows.map(row => row.map(cell => (cell === null || cell === undefined) ? '' : String(cell)));
+            } catch (error) {
+                console.error('Error parsing XLSX:', error);
+                rows = [['Error parsing file']];
+            }
+        } else {
+            rows = this.parseCsv(text);
+        }
 
         // Serialize data for client-side consumption
         const jsonRows = JSON.stringify(rows);

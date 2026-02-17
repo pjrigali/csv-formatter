@@ -2,7 +2,7 @@
     "name": "csv-quick-table-view",
     "displayName": "CSV Quick Table View",
     "description": "A simple CSV previewer that formats CSV files as HTML tables.",
-    "version": "0.0.8",
+    "version": "0.0.9",
     "publisher": "pjrigali",
     "repository": {
         "type": "git",
@@ -23,7 +23,7 @@
                 "displayName": "CSV Preview",
                 "selector": [
                     {
-                        "filenamePattern": "*.csv"
+                        "filenamePattern": "*.{csv,xlsx}"
                     }
                 ],
                 "priority": "default"
@@ -61,9 +61,12 @@
         "watch": "tsc -watch -p ./"
     },
     "devDependencies": {
-        "@types/vscode": "^1.90.0",
         "@types/node": "^20.0.0",
+        "@types/vscode": "^1.90.0",
         "@vscode/vsce": "^3.0.0",
         "typescript": "^5.0.0"
+    },
+    "dependencies": {
+        "xlsx": "^0.18.5"
     }
 }
