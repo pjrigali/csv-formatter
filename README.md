@@ -11,6 +11,7 @@ A simple VS Code extension that views CSV files as formatted HTML tables.
 - Formats data into a sortable-looking HTML table (sorting implementation pending).
 - Handles quoted fields correctly.
 - **Color Customization**: Customize header, text, grid, and value colors via the Settings menu.
+- **Performance**: Handles large CSV files efficiently using client-side pagination (100 rows per page).
 
 ## Sample CSV
 
