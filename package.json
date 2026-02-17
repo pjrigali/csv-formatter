@@ -2,7 +2,7 @@
     "name": "csv-quick-table-view",
     "displayName": "CSV Quick Table View",
     "description": "A simple CSV previewer that formats CSV files as HTML tables.",
-    "version": "0.0.3",
+    "version": "0.0.5",
     "publisher": "pjrigali",
     "repository": {
         "type": "git",
@@ -14,15 +14,13 @@
     "categories": [
         "Other"
     ],
-    "activationEvents": [
-        "onCustomEditor:csvFormatter.preview"
-    ],
+    "activationEvents": [],
     "main": "./out/extension.js",
     "contributes": {
         "customEditors": [
             {
                 "viewType": "csvFormatter.preview",
-                "displayName": "CSV Table Preview",
+                "displayName": "CSV Preview",
                 "selector": [
                     {
                         "filenamePattern": "*.csv"
@@ -30,7 +28,32 @@
                 ],
                 "priority": "default"
             }
-        ]
+        ],
+        "configuration": {
+            "title": "CSV Quick Table View",
+            "properties": {
+                "csvQuickTableView.headerBackground": {
+                    "type": "string",
+                    "default": "#333333",
+                    "description": "Background color for the table header."
+                },
+                "csvQuickTableView.headerForeground": {
+                    "type": "string",
+                    "default": "#ffffff",
+                    "description": "Text color for the table header."
+                },
+                "csvQuickTableView.gridColor": {
+                    "type": "string",
+                    "default": "#444444",
+                    "description": "Color of the table grid lines."
+                },
+                "csvQuickTableView.valueColor": {
+                    "type": "string",
+                    "default": "var(--vscode-editor-foreground)",
+                    "description": "Text color for the table values."
+                }
+            }
+        }
     },
     "scripts": {
         "vscode:prepublish": "npm run compile",
