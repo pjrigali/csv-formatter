@@ -103,10 +103,12 @@ class CsvEditorProvider implements vscode.CustomReadonlyEditorProvider {
         // Serialize data for client-side consumption
         const jsonRows = JSON.stringify(rows);
 
+
         const headerBg = config.get('headerBackground');
         const headerFg = config.get('headerForeground');
         const gridColor = config.get('gridColor');
         const valueColor = config.get('valueColor');
+        const rowsPerPage = config.get('rowsPerPage', 1000);
 
         return `
             <!DOCTYPE html>
@@ -170,6 +172,10 @@ class CsvEditorProvider implements vscode.CustomReadonlyEditorProvider {
                         <label>Values</label>
                         <input type="color" id="valueColor" value="${valueColor}">
                     </div>
+                    <div class="setting-item">
+                        <label>Rows/Page</label>
+                        <input type="number" id="rowsPerPage" value="${rowsPerPage}" min="1" max="10000" style="width: 50px; background: var(--vscode-input-background); color: var(--vscode-input-foreground); border: 1px solid var(--vscode-input-border);">
+                    </div>
                 </div>
 
                 <div id="table-container"></div>
@@ -183,9 +189,9 @@ class CsvEditorProvider implements vscode.CustomReadonlyEditorProvider {
                 <script>
                     const vscode = acquireVsCodeApi();
                     const csvData = ${jsonRows};
-                    const pageSize = 100;
+                    let pageSize = ${rowsPerPage};
                     let currentPage = 0;
-                    const totalPages = Math.ceil((csvData.length - 1) / pageSize); // -1 for header
+                    let totalPages = Math.ceil((csvData.length - 1) / pageSize); // -1 for header
 
                     const tableContainer = document.getElementById('table-container');
                     const pageInfo = document.getElementById('pageInfo');
@@ -280,9 +286,21 @@ class CsvEditorProvider implements vscode.CustomReadonlyEditorProvider {
                         document.documentElement.style.setProperty('--grid-color', e.target.value);
                         updateConfig('gridColor', e.target.value);
                     });
-                     document.getElementById('valueColor').addEventListener('input', (e) => {
+                    document.getElementById('valueColor').addEventListener('input', (e) => {
                         document.documentElement.style.setProperty('--value-color', e.target.value);
                         updateConfig('valueColor', e.target.value);
+                    });
+
+                    const rowsPerPageInput = document.getElementById('rowsPerPage');
+                    rowsPerPageInput.addEventListener('change', (e) => {
+                         const val = parseInt(e.target.value);
+                         if (val > 0) {
+                             pageSize = val;
+                             currentPage = 0; // Reset to first page
+                             totalPages = Math.ceil((csvData.length - 1) / pageSize);
+                             updateConfig('rowsPerPage', val);
+                             renderTable(currentPage);
+                         }
                     });
 
                     // Initial Render

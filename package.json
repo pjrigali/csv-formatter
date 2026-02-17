@@ -2,7 +2,7 @@
     "name": "csv-quick-table-view",
     "displayName": "CSV Quick Table View",
     "description": "A simple CSV previewer that formats CSV files as HTML tables.",
-    "version": "0.0.9",
+    "version": "0.0.10",
     "publisher": "pjrigali",
     "repository": {
         "type": "git",
@@ -51,6 +51,11 @@
                     "type": "string",
                     "default": "var(--vscode-editor-foreground)",
                     "description": "Text color for the table values."
+                },
+                "csvQuickTableView.rowsPerPage": {
+                    "type": "number",
+                    "default": 1000,
+                    "description": "Number of rows to display per page."
                 }
             }
         }

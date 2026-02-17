@@ -13,6 +13,7 @@ A simple VS Code extension that views CSV files as formatted HTML tables.
 - **Color Customization**: Customize header, text, grid, and value colors via the Settings menu.
 - **Performance**: Handles large CSV files efficiently using client-side pagination (100 rows per page).
 - **File Support**: Opens both `.csv` and `.xlsx` files.
+- **Customizable Rows**: Adjust the number of rows per page via Settings (default 1000).
 
 ## Sample CSV
 
@@ -45,6 +46,10 @@ Click the **Gear Icon (⚙️)** in the top-right corner of the editor to open t
 Changes are saved automatically to your VS Code settings (`settings.json`).
 
 ## Change Log
+
+### 0.0.10
+- **Features**: Added `rowsPerPage` setting (default 1000) with a UI control in the settings panel.
+- **Package Size**: ~4.5 MB (due to `xlsx` dependency).
 
 ### 0.0.9
 - **Features**: Added support for `.xlsx` Excel files.
