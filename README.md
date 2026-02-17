@@ -10,7 +10,7 @@ A simple VS Code extension that views CSV files as formatted HTML tables.
 - Opens `.csv` files in a readonly custom editor.
 - Formats data into a sortable-looking HTML table (sorting implementation pending).
 - Handles quoted fields correctly.
-- Handles quoted fields correctly.
+- **Color Customization**: Customize header, text, grid, and value colors via the Settings menu.
 
 ## Sample CSV
 
@@ -28,4 +28,16 @@ id,name,role,salary
 Turns into:
 
 
+
 ![CSV Table Preview](sample.png)
+
+## Color Customization
+
+Click the **Gear Icon (⚙️)** in the top-right corner of the editor to open the settings panel. You can customize:
+
+- **Header Background**
+- **Header Text Color**
+- **Grid Lines**
+- **Value Text Color**
+
+Changes are saved automatically to your VS Code settings (`settings.json`).
