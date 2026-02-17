@@ -2,7 +2,7 @@
     "name": "csv-quick-table-view",
     "displayName": "CSV Quick Table View",
     "description": "A simple CSV previewer that formats CSV files as HTML tables.",
-    "version": "0.0.7",
+    "version": "0.0.8",
     "publisher": "pjrigali",
     "repository": {
         "type": "git",

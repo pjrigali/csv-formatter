@@ -42,3 +42,19 @@ Click the **Gear Icon (⚙️)** in the top-right corner of the editor to open t
 - **Value Text Color**
 
 Changes are saved automatically to your VS Code settings (`settings.json`).
+
+## Change Log
+
+### 0.0.8
+- Added Change Log text to README.
+
+### 0.0.7
+- **Performance**: Implemented client-side pagination to handle large CSV files (e.g., 10MB+) without freezing.
+- **Navigation**: Added "Previous" and "Next" buttons for table navigation.
+
+### 0.0.6
+- **Features**: Added Color Customization settings for headers, grid lines, and text.
+- **Documentation**: Updated README with Color Customization instructions.
+
+### 0.0.1 - 0.0.5
+- Initial release and styling improvements.
