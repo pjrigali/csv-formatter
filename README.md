@@ -47,6 +47,13 @@ Changes are saved automatically to your VS Code settings (`settings.json`).
 
 ## Change Log
 
+### 0.0.11
+- **Performance**: Added 300ms debounce to live editing changes to prevent CPU and editor typing lag.
+- **Performance**: Optimized settings updates to use webview messaging, avoiding full file re-reads and iframe reloads on color settings changes.
+- **UX Improvements**: Split color picker events so dragging provides instant local visual previews, while disk configuration writes only commit when the picker is closed.
+- **Bug Fixes**: Resolved crash and negative row count formatting issues with empty or single-row CSV files.
+- **Bug Fixes**: Added runtime theme CSS variable resolution for color picker inputs, preventing theme colors from defaulting to black.
+
 ### 0.0.10
 - **Features**: Added `rowsPerPage` setting (default 1000) with a UI control in the settings panel.
 - **Package Size**: ~4.5 MB (due to `xlsx` dependency).
